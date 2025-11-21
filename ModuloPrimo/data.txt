@@ -1,0 +1,22 @@
+# DATI
+
+#Terra:
+Ascissa_3	1.0
+Ordinata_3	0.0
+Velocita_3	1.0
+
+#Venere:
+Ascissa_2	0.72
+Ordinata_2	0.0
+Velocita_2	1.18
+
+#Mercurio:
+Ascissa_1	0.38
+Ordinata_1	0.0
+Velocita_1	1.62
+
+#Marte:
+Ascissa_4	1.52
+Ordinata_4	0.0
+Velocita_4	0.81
+

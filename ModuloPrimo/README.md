@@ -1,23 +1,29 @@
 ### Integrazione orbite planetarie
 
-In questo file verra' descritto il sistema di codici che integrano le orbite dei pianeti attorno alla propria stella per il Sistema Solare e il sistema Trappist-1. I codici integrano le orbite attraverso il metodo euleriano e successivamente attraverso il metodo Runge-Kutta 4.
+In questo file verra' descritto il sistema di codici che integrano le orbite dei pianeti attorno alla propria stella per il Sistema Solare e il sistema Trappist-1. I codici integrano le orbite attraverso il metodo euleriano.
 
 #### Data files
 
-I file dati sono organizzati in due: 'data\_SUN.txt' e 'data\_TRAP.txt'. In base alla massa della stella inserita da linea di comando il programma sceglie quale dei due file utilizzare, questo metodo è stato implementato con un if\&else perché i sistemi tra cui scegliere sono solo due, si può generalizzare per più sistemi per esempio con l'implementazione di un sistema di #ifdef che scelgono quali dati utilizzare in base alle indicazioni fornite durante la compilazione del codice.
-
-Nel file dati sono stati inseriti anche i valori delle distanze dei pianeti dalla stella perché mi sembrava uno spreco avere un file di questo tipo e non sfruttarlo...
-
-**Sono da rifare tutti in funzione della stella compilata e dei raggi. IDEA: usare un 'costanti.c' per mantenere le costanti inviolabili e fare un unico file per le posizioni dei pianeti in base alla stella compilata -> #ifdef sceglie quale tipo di pianeta deve essere ricercato. Si mantiene una ricerca non posizionale ma almeno non devo aggiungere troppe azioni a 'bintotxt.c'**
+Il file "DATA.txt" riporti i dati relativi alle distanze dei vari pianeti rispetto alla stella di riferimento (Sole o Trappist). Il file è stato scritto in modo da consentire una ricerca non posizionale da parte dello script. In base alla compilazione dei file *.c il programma ricrcherà i dati per il Sole o per Trappist. Inserendo le distanze in un file queste vengono gestite più facilmente senza rischiare di scriverle errate durante l'inserimento da terminale. 
 
 #### Makefile
 
-Il Makefile permette di compilare separatamente "main_orbite.c" e lo script di traduzione "bintotxt.c". Alla fine dell'esecuzione del modulo l'opzione clean permette di pulire la cartella dai file in eccesso e mantenerla ordinata.
+Il Makefile permette di compilare separatamente "main_orbite.c" e lo script di traduzione "bintotxt.c". Alla fine dell'esecuzione del modulo la regola 'clean' permette di pulire la cartella dai file in eccesso e mantenerla ordinata.
+
+Come assicurazione sulla compilazione Gemini-AI ha consigliato di aggiungere la flag '-std=c99' in modo che i file vengano sempre compilati con una versione che supporta tutte le librerie utilizzate.
+
+'Makefile' possiede due regole principali che permettono di compilare 'main_orbite.c' assieme a 'functions.c' in modo che integrino le orbite per il sistema solare e per il sistema di Trappist; questo perché all'interno dei file sono presenti degli '#ifdef'. Oltre a ciò possiede la regola per compilare il file 'bintotxt.c' (traduttore binario->testo).
 
 #### Header.h
 
-Nell'header.h vengono incluse tutte le librerie utili ai codici, assieme alle costanti che però vorrei spostare in un file a parte per separarle dal resto.
-'header.h' inizializza la struttura del pianeta in modo che ogni script possa recuperarla se necessario e inizializza anche le funzioni che verranno esplicitate in 'functions.c' ed utilizzate in 'main_orbite.c' .
+Nell'header.h' vengono incluse tutte le librerie utili ai codici e vengono definite le costanti matematiche.
+'header.h' inoltre inizializza le costanti esterne relative all'astrofisica (che verranno assegnate nel file 'costanti.c'), la struttura del pianeta in modo che ogni script possa recuperarla se necessario e inizializza anche le funzioni che verranno esplicitate in 'functions.c' ed utilizzate in 'main_orbite.c' .
+
+Gemini-AI ha consigliato di inserire una "Include Guard" di protezione nel caso il modulo dovesse utilizzare più file header linkati tra loro, di modo che il contenuto del file sia letto e processato dal compilatore una sola volta, indipendentemente da quante volte quel file venga referenziato tramite '#include'. Procedura che per ora non è necessaria ma che si può rivelare utile se si vorranno aggiungere nuovi metodi di integrazione delle orbite (e.g. RK4).
+
+#### Costanti.c
+
+Mi sembrava sprecato utilizzare le costanti astrofisiche come delle variabili, per questo al posto di inserirle in un file testo che necessitava una ricerca non posizionale le ho messe in un file compilabile che assegna i loro valori come costanti esterne (inizializzate nel header). In ogni caso il file mantiene la versatilità precedente di poter essere modificato a piacimento con l'unico accorgimento di ricordarsi di inizializzare le variabili globali nel header e poi assegnarle qui.
 
 #### Functions.c
 
@@ -58,15 +64,6 @@ e.g.
 
 
 #### Plot.py
-
-
-
-#### Eulero.c
-
-
-
-#### RK4.c
-
 
 
 

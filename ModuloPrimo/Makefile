@@ -6,8 +6,8 @@ LDLIBS = -lm
 TARGET_S = main_sun
 TARGET_T = main_trap
 SRCS = main_orbite.c functions.c costanti.c
-OBJS_S = $(SRCS:.c=.sun.o)		# Oggetti per il Sole
-OBJS_T = $(SRCS:.c=.trap.o)		# Oggetti per Trappist-1
+OBJS_S = $(SRCS:.c=.sun.o)		
+OBJS_T = $(SRCS:.c=.trap.o)		
 
 #	REGOLE PRINCIPALI
 ## Sole std 

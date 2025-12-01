@@ -1,0 +1,21 @@
+# DATI
+
+##Sole:
+###Terra
+Sole_3	1.0
+###Venere
+Sole_2	0.72
+###Mercurio
+Sole_1	0.38	
+###Marte:
+Sole_4	1.52
+
+##Trappist:
+###Trappist-b
+Trap_1	0.01154
+###Trappist-c
+Trap_2	0.0158
+###Trappist-d
+Trap_3	0.0223
+###Trappist-e
+Trap_4	0.029

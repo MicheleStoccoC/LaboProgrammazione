@@ -1,23 +1,35 @@
-# Compiler and flags
+#	VARIABILI
 CC = gcc
-CFLAGS = -Wall -Wextra -O2
-LDFLAGS = -lm
+STD_CFLAGS = -Wall -O2 -std=c99
+TRAP_CFLAGS = -Wall -DTRAPPIST -O2 -std=c99
+LDLIBS = -lm
+TARGET_S = main_sun
+TARGET_T = main_trap
+SRCS = main_orbite.c functions.c costanti.c
+OBJS_S = $(SRCS:.c=.sun.o)		# Oggetti per il Sole
+OBJS_T = $(SRCS:.c=.trap.o)		# Oggetti per Trappist-1
 
-# Files
-TARGET = main
-OBJS = main_orbite.o
+#	REGOLE PRINCIPALI
+## Sole std 
+sun: $(OBJS_S)
+	$(CC) $(OBJS_S) -o $(TARGET_S) $(LDLIBS)
 
-# Build executable
-$(TARGET): $(OBJS)
-	$(CC) -o $(TARGET) $(OBJS) $(LDFLAGS)
+%.sun.o: %.c header.h
+	$(CC) $(STD_CFLAGS) -c $< -o $@
 
-# Pattern rule: how to build any .o file from a .c file
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+## Trappist-1
+trapp: $(OBJS_T)
+	$(CC) $(OBJS_T) -o $(TARGET_T) $(LDLIBS)
 
-# Dependencies
-main.o: math_ops.h
+%.trap.o: %.c header.h
+	$(CC) $(TRAP_CFLAGS) -c $< -o $@
 
-#Cleaning procedure
+
+.PHONY: clean
 clean:
-	rm -f $(TARGET) $(OBJS)
+	rm -f $(TARGET_S) $(TARGET_T) $(OBJS_S) $(OBJS_T)
+	rm -f bin2txt
+	rm -f Pianeta*
+
+bintotxt: bintotxt.c
+	$(CC) $(STD_CFLAGS) bintotxt.c costanti.c -o bin2txt $(LDLIBS)

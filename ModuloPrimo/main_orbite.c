@@ -58,12 +58,3 @@ int main(int argc, char *argv[]){
 
     return 0 ;
 }
-
-/* QUESTO PER ORA FUNZIONA */
-
-/*
-struct pianeta transcribe(struct pianeta P, double dt, int n, FILE *f1){
-    fprintf(f1, "%lf\t%lf\t%lf\t%lf\t%lf\t%lf\t%lf\n",dt*n, P.posX*UA, P.posY*UA, P.vX*(UA/YEAR), P.vY*(UA/YEAR), P.aX*(UA/(YEAR*YEAR)), P.aY*(UA/(YEAR*YEAR))) ;
-    return P ;
-}
-*/

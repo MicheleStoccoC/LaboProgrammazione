@@ -4,6 +4,7 @@ Created on Tue Nov 18 18:35:28 2025
 
 @author: Michele
 """
+
 #   Librerie
 import numpy as np
 import matplotlib.pyplot as plt

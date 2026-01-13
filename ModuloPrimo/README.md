@@ -14,6 +14,16 @@ Come assicurazione sulla compilazione Gemini-AI ha consigliato di aggiungere la 
 
 'Makefile' possiede due regole principali che permettono di compilare 'main_orbite.c' assieme a 'functions.c' in modo che integrino le orbite per il sistema solare e per il sistema di Trappist; questo perché all'interno dei file sono presenti degli '#ifndef'. Oltre a ciò possiede la regola per compilare il file 'bintotxt.c' (traduttore binario->testo).
 
+Chiamare le regole:
+
+>> make sun
+
+>> make trapp
+
+>> make bintotxt
+
+>> make clean
+
 #### Header.h
 
 Nell'header.h' vengono incluse tutte le librerie utili ai codici e vengono definite le costanti matematiche.

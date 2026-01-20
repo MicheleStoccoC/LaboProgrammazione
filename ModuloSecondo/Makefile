@@ -40,7 +40,7 @@ SPH_quick: clean_snaps $(QSOURCES)
 	@echo '  '
 	./$(QPROG) $(PRESPH)
 		
-SPH: clean_snaps $(SOURCES)
+SPH_list: clean_snaps $(SOURCES)
 	$(CC) $(NO_OMP) -o $(PROG) $(SOURCES) $(LIB)
 	@echo '  '
 	./$(PROG) $(PRESPH)

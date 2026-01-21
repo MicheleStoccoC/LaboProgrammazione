@@ -4,18 +4,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-// COSTANTI
+        /* COSTANTI DEL SISTEMA */
 
-#define FINAL_TIME 0.2		//Tempo finale 
+#define FINAL_TIME 0.2		//Tempo finale
 #define GAMMA 1.4           	//Indice Adiabatico
 #define alpha 1.0		//Servono per calcolo di elemento
 #define beta 2.0		//di viscosita' aggiunto a mano
 #define EPSILON 0.01		//Costante per evitare problemi numerici
 #define K 0.1			//Costante per il calcolo del passo temporale 
-#define M 0.000125          	//Massa 
+#define M 0.000125          	//Massa
 
 
-// STRUTTURE
+        /* STRUTTURE */
 
 struct nlist{
     struct nlist *next; /* next entry in chain */
@@ -23,22 +23,35 @@ struct nlist{
     char *defn;         /* replacement text */
 };
 
+struct Pair{
+    double d;   // Distanza
+    int idx;    // Indice della particella
+};
+
 #ifndef _NR_UTILS_H_
 #define _NR_UTILS_H_
 
 struct Particle{
-    int i;
-    double h;
-    double x;
-    double v;
-    double rho;
-    double P;
-    double u;
-    double ax;
-    double au;
-    int neigh_num;
-    int neighbors[120];
+    int i ;                     // Indice della particella
+    double h ;                  // Lunghezza di smoothing
+    double x ;                  // Posizione
+    double v ;                  // Velocita'
+    double rho ;                // Densita'
+    double P ;                  // Pressione
+    double u ;                  // Energia interna
+    double ax ;                 // Accelerazione
+    double au ;                 // Tasso di cambiamento energia interna
+    int neigh_num ;             // Numero dei vicini
+    int neighbors[120] ;         // Indici dei vicini
+    struct Particle *next ;     // Puntatore alla particella successiva in lista
 };
+
+typedef struct List {
+    int part_id;            // Indice di particella
+    struct List *next;      // Successivo
+} List;
+
+        /* NUMERICAL RECEPIES */
 
 static float sqrarg;
 #define SQR(a) ((sqrarg=(a)) == 0.0 ? 0.0 : sqrarg*sqrarg)
@@ -82,12 +95,13 @@ static int iminarg1,iminarg2;
 
 #if defined(__STDC__) || defined(ANSI) || defined(NRANSI) /* ANSI */
 
-//FUNZIONI RICERCA VICINI 
-int cmp_part(const void *a, const void *b) ;
-double quicksearch(struct Particle *p, int N, double L_domain) ;
-
-
-// FUNZIONI FISICHE/CALCOLO
+        /* FUNZIONI DI RICERCA DEI VICINI: LINKEDLIST */
+double Hmax(struct Particle *p, int N);
+int cmp_pair(const void *a, const void *b);
+void di_sort(double *d, int *idx, int N);
+void makelist(struct Particle *p, struct Particle **Celle, int N, double csize, int Ncelle);
+double listsearch(struct Particle *p, int N, double L_domain);
+        /* FUNZIONI DI CALCOLO DELLA FISICA DEL SISTEMA */
 double distance(struct Particle a, struct Particle b, double L_domain);
 double kernel(double r, double h);
 double kern_der(double r, double h);
@@ -95,17 +109,14 @@ void ComputeXLR8(struct Particle *p, int N, double L_domain);
 void ComputeDensPress(struct Particle *p, int N, double L_domain);
 double ComputeViscosity(struct Particle a, struct Particle b, double L_domain);
 double ComputeTimeStep(struct Particle *p, int N, double h);
-void KDK(struct Particle *p, int n, double dt, double h, double L_domain);
-
-// FUNZIONI INPUT/OUTPUT
-
-void snap_time(struct Particle *p, int n, int step);
-void snap_last(struct Particle *p, int n);
+void KDK(struct Particle *p, int N, double dt, double h, double L_domain);
+        /* FUNZIONI DI INPUT/OUTPUT */
+void snap_time(struct Particle *p, int N, int step);
+void snap_last(struct Particle *p, int N);
 void set_IC(struct Particle *p, int n_lz, int n_rz, double L_domain);
-
-// FUNZIONI CREAZIONE/LIBERAZIONE MEMORIA
-
+        /* FUNZIONI CREAZIONE/LIBERAZIONE MEMORIA */
 void nrerror(char error_text[]);
+struct List *lalloc(void);
 float *vector(long nl, long nh);
 int *ivector(long nl, long nh);
 unsigned char *cvector(long nl, long nh);
@@ -115,7 +126,9 @@ float **matrix(long nrl, long nrh, long ncl, long nch);
 double **dmatrix(long nrl, long nrh, long ncl, long nch);
 int **imatrix(long nrl, long nrh, long ncl, long nch);
 float ***f3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh);
+void dealloL(struct List *L);
 void free_pvector(struct Particle *p, long nl, long nh);
+void free_Livector(List *L, long nl, long nh);
 void free_vector(float *v, long nl, long nh);
 void free_ivector(int *v, long nl, long nh);
 void free_cvector(unsigned char *v, long nl, long nh);
@@ -130,21 +143,24 @@ void free_f3tensor(float ***t, long nrl, long nrh, long ncl, long nch, long ndl,
 
 #else /* ANSI */
 /* traditional - K&R */
-int cmp_part();
-double quicksearch();
+double Hmax();
+int cmp_pair();
+void di_sort();
+void makelist();
+double listsearch();
 double distance();
 double kernel();
 double kern_der();
+double ComputeViscosity();
 void ComputeXLR8();
 void ComputeDensPress();
-double ComputeViscosity();
 double ComputeTimeStep();
 void KDK();
 void snap_time();
 void snap_last();
 void set_IC();
-int get_units();
 void nrerror();
+struct List *lalloc();
 float *vector();
 int *ivector();
 unsigned char *cvector();

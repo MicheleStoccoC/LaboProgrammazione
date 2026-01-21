@@ -34,10 +34,11 @@ double quicksearch(struct Particle *p, int N, double L_domain){
             }
             int iNeigh=(i+j+N)%N ;
             // evitare che la periodicità disturbi il tubo
-            double d=distance(p[i],p[iNeigh],L_domain) ;
-            if(fabs(d)>L_domain*0.45){
+            double temp_d=p[i].x-p[iNeigh].x ;
+            if(fabs(temp_d)>L_domain*0.5){
                 continue ;
             }
+            double d=distance(p[i],p[iNeigh],L_domain) ;
             //
             p[i].neighbors[p[i].neigh_num]=iNeigh ;
             p[i].neigh_num++ ;

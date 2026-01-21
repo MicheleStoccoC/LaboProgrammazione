@@ -12,7 +12,6 @@ double distance(struct Particle p1, struct Particle p2, double L_domain){
 // L_domain: lunghezza del tubo
 
 	double dx=p1.x-p2.x ;
-	double sign_x=sign(dx) ;
 	// CC Periodiche
 	if(dx>0.5*L_domain){  
 		dx -= L_domain ;
@@ -179,11 +178,13 @@ void KDK(struct Particle *p, int N, double dt, double h, double L_domain){
 
 		p[i].x += p[i].v*dt ;
 		// CC Periodiche
-		while(p[i].x<0.){
-			p[i].x += L_domain ;
+		if(p[i].x<0.){
+			p[i].x=-p[i].x ;
+			p[i].v=-p[i].v ;
 		} 
-		while(p[i].x>L_domain){
-			p[i].x -= L_domain ;
+		if(p[i].x>L_domain){
+			p[i].x=L_domain-(p[i].x-L_domain) ;
+			p[i].v=-p[i].v ;
 		}
 	}
 	

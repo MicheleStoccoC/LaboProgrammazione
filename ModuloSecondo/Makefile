@@ -5,8 +5,7 @@ VERBOSE = -Wall -Wextra
 LIB     = -lm
 OMPFL	=  -O3 -march=native -mtune=native -funroll-loops -ftree-vectorize -fopenmp
 NO_OMP	=  -O3 -march=native -mtune=native -funroll-loops -ftree-vectorize 
-PRESPH	= 4000 0.8 1
-# 4000 0.8889 3
+PRESPH	= 4000 0.8 3
 
 HEADERS      	= $(wildcard ./*.h)
 OBJ				= $(wildcard ./*.o)

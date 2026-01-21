@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
 	
 	
 	if(ratio>1){
-		printf("ERRORE: Utilizzo Sbagliato - Rateo>1\n") ;
+		printf("ERRORE: Utilizzo Sbagliato - Rateo>1 \n") ;
 		printf("\n argv[2] deve essere compreso tra 0 e 1, rappresenta N_sx/N_tot") ;
 		exit(-1) ;
 	}
@@ -37,13 +37,14 @@ int main(int argc, char *argv[]){
 	
 	printf("Tempo di stop: %lf\n", FINAL_TIME) ;
 	
-	//Allocazione memoria
+	/* Allocazione memoria */
 	p=(struct Particle *)malloc(N*sizeof(struct Particle)) ;
 	if(!p){
 		printf("Errore nell'allocazione della memoria delle particelle\n") ;
 		exit(-1) ;
 	}
 
+	/* Condizioni Iniziali */
 	set_IC(p,n_lz,n_rz,length) ;
     snap_time(p,N,0) ;
 	
@@ -70,12 +71,12 @@ int main(int argc, char *argv[]){
 	Tend=clock() ;
 	double Ttot=((double)(Tend-Tstart))/CLOCKS_PER_SEC ;
 
-	printf("\t100%% completato... tempo simulato: %lf sec \n", time) ;
+	printf("\n\t100%% completato... tempo simulato: %lf sec \n", time) ;
 	printf("Tempo impiegato ad integrare il sistema: %lf sec \n", Ttot) ;
 	
     //Libero memoria
 	free(p) ;
 
 	return 0 ;
-	
+
 }

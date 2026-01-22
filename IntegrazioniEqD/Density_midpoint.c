@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+#include <nrutil.h>
 
     /* COSTANTI */
 #define PI 3.14159
@@ -44,7 +41,6 @@ double midpoint(double h, double k1, double k2, double t, double y, FILE *f2){
 }
 
 
-
     /* MAIN */
 int main(){
     int N ;
@@ -62,7 +58,7 @@ int main(){
     double k1=0, k2=0, y=0 ;
     double t=0 ;
     fprintf(f2, "%lf %lf %lf %lf\n", t, RHO, y, y-exact(t, RHO)) ;
-    midpoint(h, k1, k2, t, y, f2) ;
+    midpoint(h,k1,k2,t,y,f2) ;
 
     fclose(f2) ;
 

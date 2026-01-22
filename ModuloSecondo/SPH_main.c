@@ -75,6 +75,9 @@ int main(int argc, char *argv[]){
 	//Libero memoria
 	free(p) ;
 
+	printf("\a");
+    fflush(stdout);
+
 	return 0 ;
 	
 }

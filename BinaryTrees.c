@@ -2,11 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* define: metodo per memorizzare le definizioni
- in fase di compilazione tutte le volte che verra' incontrata
- la variabile MAXWORD, al suo posto verra' automaticamente scritto
- 100
-*/
+
 #define MAXWORD 100
 
 // Struttura del nodo dell'albero
@@ -68,7 +64,7 @@ void treeprint(struct tnode *p) {
     }
 }
 
-// Funzione per liberare tutta la memoria allocata per la lista -> lo modificheremo per l'albero
+// Funzione per liberare tutta la memoria allocata per la lista 
 void free_list(Node *head) {
     Node *current = head;
     Node *temp;

@@ -1,4 +1,4 @@
-#include <nrutil.h>
+#include "nrutil.h"
 
     /* COSTANTI */
 #define PI 3.14159
@@ -47,9 +47,10 @@ int main(){
     double h ;
     printf("Inserire numero di timesteps: ") ;
     scanf("%d", &N) ;
+
     h=2*TG/N ;
 
-    FILE *f2 = fopen("rhopar.txt","w") ;
+    FILE *f2 = fopen("rho_midpoint.txt","w") ;
     if (f2 == NULL){
         printf("apertura file fallita!") ;
         return 1 ;
@@ -57,7 +58,7 @@ int main(){
 
     double k1=0, k2=0, y=0 ;
     double t=0 ;
-    fprintf(f2, "%lf %lf %lf %lf\n", t, RHO, y, y-exact(t, RHO)) ;
+    fprintf(f2, "%lf\t%lf\t%lf\t%lf\n", t, RHO, y, exact(t, RHO)) ;
     midpoint(h,k1,k2,t,y,f2) ;
 
     fclose(f2) ;

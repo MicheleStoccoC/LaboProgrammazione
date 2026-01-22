@@ -1,37 +1,52 @@
 CC      = gcc
 VERBOSE = -Wall
 LIB     = -lm
-OMPFL	=  -O3
-NO_OMP	=  -O3
+FLAGS	= -O3
 FPRE	= 70. 0.3 -1. 0.7		# H0(km/s/Mpc) O_m w_EoS O_DE
-DPRE	= 0 
 
 HEADERS      	= $(wildcard ./*.h)
 OBJ				= $(wildcard ./*.o)
-DSOURCES		= Density.c nrutil.c nrutil.h odeint.c rk4.c rkck.c rkqs.c midpointfunc.c		
-FSOURCES		= Friedmann2.c nrutil.c nrutil.h odeint.c rk4.c rkck.c rkqs.c midpointfunc.c	
-DPROG			= Density
+DMSOURCES		= Density_midpoint.c nrutil.c nrutil.h odeint.c rk4.c rkck.c rkqs.c
+DASOURCES		= Density_adaptive.c nrutil.c nrutil.h odeint.c rk4.c rkck.c rkqs.c		
+FSOURCES		= Friedmann2.c nrutil.c nrutil.h odeint.c rk4.c rkck.c rkqs.c midpointfunc.c
+DMPROG			= DensityM
+DAPROG			= DensityA
 FPROG			= Friedmann
 
 
 %.o: %.c $(HEADERS) Makefile
-	$(CC) $(OMPFL) -c $< -o $@ 
+	$(CC) $(FLAGS) -c $< -o $@ 
 
-Density: clean_txt $(DSOURCES)
-	$(CC) $(NO_OMP) -o $(DPROG) $(DSOURCES) $(LIB)
+DensityM: $(DMSOURCES)
+	$(CC) $(FLAGS) -o $(DMPROG) $(DMSOURCES) $(LIB)
 	@echo '  '
-	./$(DPROG) $(DPRE)
+	./$(DMPROG)
+
+DensityMC: $(DMSOURCES)
+	$(CC) $(FLAGS) -DRHO_CONST -o $(DMPROG) $(DMSOURCES) $(LIB)
+	@echo '  '
+	./$(DMPROG)
+
+DensityA: $(DASOURCES)
+	$(CC) $(FLAGS) -o $(DAPROG) $(DASOURCES) $(LIB)
+	@echo '  '
+	./$(DAPROG)
+
+DensityAC: $(DSOURCES)
+	$(CC) $(FLAGS) -DRHO_CONST -o $(DAPROG) $(DASOURCES) $(LIB)
+	@echo '  '
+	./$(DAPROG)
 		
 Friedmann: clean_txt $(FSOURCES)
-	$(CC) $(NO_OMP) -o $(FPROG) $(FSOURCES) $(LIB)
+	$(CC) $(FLAGS) -o $(FPROG) $(FSOURCES) $(LIB)
 	@echo '  '
 	./$(FPROG) $(FPRE)
 	
 clean:
-	rm -rf *~ $(DPROG) $(FPROG) $(OBJ)
+	rm -rf *~ $(DAPROG) $(DMPROG) $(FPROG) $(OBJ)
 
 clean_txt:
 	rm -rf *.txt
 
-#clean_gifs:
-#	rm -rf *.gif
+clean_png:
+	rm -rf *.png

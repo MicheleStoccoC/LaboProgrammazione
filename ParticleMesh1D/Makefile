@@ -1,15 +1,15 @@
 #	VARIABILI
 CC = gcc
 NGP_CFLAGS = -Wall -O2 -std=c99
-TGP_CFLAGS = -Wall -DTGP -O2 -std=c99
+TGP_CFLAGS = -Wall -DTSC -O2 -std=c99
 CIC_CFLAGS = -Wall -DCIC -O2 -std=c99
 LDLIBS = -lfftw3 -lm
 TARGET_N = 1dpm_ngp
-TARGET_T = 1dpm_tgp
+TARGET_T = 1dpm_tsc
 TARGET_C = 1dpm_cic
 SRCS = main_pm.c functions.c parameters.c
 OBJS_N = $(SRCS:.c=.ngp.o)		
-OBJS_T = $(SRCS:.c=.tgp.o)
+OBJS_T = $(SRCS:.c=.tsc.o)
 OBJS_C = $(SRCS:.c=.cic.o)		
 
 #	REGOLE PRINCIPALI
@@ -20,7 +20,7 @@ ngp: $(OBJS_N)
 %.ngp.o: %.c header.h
 	$(CC) $(NGP_CFLAGS) -c $< -o $@
 
-## 1D_PM TGP
+## 1D_PM TSC
 tgp: $(OBJS_T)
 	$(CC) $(OBJS_T) -o $(TARGET_T) $(LDLIBS)
 

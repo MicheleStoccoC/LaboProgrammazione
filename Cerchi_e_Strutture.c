@@ -24,7 +24,7 @@ struct point genera_punto(double r) {
         /* MAIN */
 int main(int argc, char *argv[]) {
     if (argc != 5){
-        printf("Numero di argomenti sbagliato, ne servono 5: file, N, M, r1, r2. \n");
+        printf("Numero di argomenti sbagliato, ne servono 5: eseguibile, N, M, r1, r2. \n");
         return 1;
     }
     if(atoi(argv[1])>=1e5 || atoi(argv[2])>=1e5){

@@ -24,14 +24,11 @@ extern const double BoxL ;          // Length of the box (in kpc)
 extern const double A_deltaPar ;    // Maximum density contrast
 extern const double G ;
 
-    /* STRUTTURE */
-
     /* FUNZIONI */
 double contrastD(double x) ;
 double Kernel(double x) ;
 double density(double m, double x[], double J, double dx) ;
 void InitialConditions(double x[], double v[], FILE *f1) ;
-
 void ComputePotential(double *Density, double *Pot, fftw_complex *kDensity, fftw_complex *kPot, fftw_plan fft_real_fwd, fftw_plan fft_real_bck) ;
 void ComputeMeshForce(double *Pot, double MF[], double dx) ;
 void ComputePartForce(double MF[], double PF[], double x[], double dx) ;

@@ -1,7 +1,5 @@
 #include "nrutil.h"
 
-// #include <nr.h>
-
     /* COSTANTI */
 #define PI 3.14159
 #define E 2.71828
@@ -83,25 +81,23 @@ int main(int argc, char *argv[]){
     float *yscal ; 
     yscal=vector(1,1) ;
     FILE *f1=fopen("Fried_adaptive.txt", "w") ;
+    if (f1==NULL){
+        printf("apertura file fallita!") ;
+        return 1 ;
+    }
     float t=ti ;
     float hdid, hnext ;
 
     Tstart=clock() ;
-    while(a[1]<af){
-        derivata(t,a,dadt) ;
-         
-        yscal[1]=fabs(a[1])+fabs(dadt[1]*h)+1.0e-30 ;
-
-        rkqs(a,dadt,1,&t,h,eps,yscal,&hdid,&hnext,derivata) ;
-        
-        fprintf(f1, "%e\t%f\n", t/3.154e16, a[1]) ;    // Tempo in Gyr
-
-        h=hnext;
-    }
-    fclose(f1) ;
+    odeint(a,1,ti,tf,eps,h1,hmin,&nok,&nbad,derivata,rkqs) ;
     Tend=clock() ;
 	double Ttot=((double)(Tend-Tstart))/CLOCKS_PER_SEC ;
     printf("Tempo impiegato ad integrare il sistema con adaptive: %lf sec \n", Ttot) ;
+
+    for(int i=1; i<=kount; i++){
+        fprintf(f1, "%e\t%f\n", xp[i]/3.154e16, yp[1][i]) ;    // Tempo in Gyr
+    }
+    fclose(f1) ;
     /* END */
 
     /* Midpoint Integration */

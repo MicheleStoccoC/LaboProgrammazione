@@ -1,7 +1,5 @@
 #include "header.h"
 
-    /*  PARAMETRI COSMOLOGICI GLOBALI */
-
     /* PARAMETRI GLOBALI  */
 const double UnitVel=2.0e7 ;            // cm/s (200km/s)
 const double UnitMass=1.989e43 ;        // g  (e10 M_sun)

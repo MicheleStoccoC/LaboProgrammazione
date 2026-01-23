@@ -7,7 +7,7 @@ double contrastD(double x){
     return delta ;
 }
 /* Kernel function */
-#ifdef TGP
+#ifdef TSC
 double Kernel(double x){
     double W=0 ;
     if(fabs(x)<0.5){

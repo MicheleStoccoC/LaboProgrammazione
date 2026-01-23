@@ -177,4 +177,5 @@ int main(int argc, char *argv[]){
     R = Bisez("%lf%lf%s%s%s",m,n,p,q,r) ;
     printf("Radice con bisezione: %lf \n", R) ;
 
+    return 0 ;
 }

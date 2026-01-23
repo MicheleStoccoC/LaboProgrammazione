@@ -60,13 +60,13 @@ int main(){
     ystart[1]=0.0 ;
     odeint(ystart,1,ti,tf,eps,hi,hmin,&nok,&nbad,derivata,rkqs) ;
 
-    FILE *f=fopen("rho_adaptive.txt","w") ;
-    if (f==NULL){
+    FILE *f1=fopen("rho_adaptive.txt","w") ;
+    if (f1==NULL){
         printf("apertura file fallita!") ;
         return 1 ;
     }
     for(int i=1; i<=kount; i++){
-        fprintf(f, "%f\t%f\t%f\t%f\n", xp[i], RHO, yp[1][i], exact(xp[i], RHO)) ;
+        fprintf(f1, "%f\t%f\t%f\t%f\n", xp[i], RHO, yp[1][i], exact(xp[i], RHO)) ;
     }
 
     free_vector(ystart,1,1) ;

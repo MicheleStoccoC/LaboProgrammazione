@@ -6,28 +6,29 @@
             /* Pi finder con numeri casuali */
 /* Quadrato di lato 2 centrato in O=(0;0) */
 
-int main() {
-    int N, i, count = 0;
-    double x, y, pi;
+int main(){
+    int N ;
+    int count=0 ;
+    double x, y, pi ;
 
     printf("Inserisci il numero di punti da generare: ");
     scanf("%d", &N);
 
     /* Per inizializzare il generatore */
-    srand(time(NULL));
+    srand(time(NULL)) ;
 
-    for (i = 0; i < N; i++) {
-        x = (double)rand() / RAND_MAX * 2.0 - 1.0;
-        y = (double)rand() / RAND_MAX * 2.0 - 1.0;
-        if (x*x + y*y <= 1.0) {
-            count++;
+    for(int i=0; i<N; i++){
+        x=(double)rand()/RAND_MAX*2.-1. ;
+        y=(double)rand()/RAND_MAX*2.-1. ;
+        if(x*x+y*y<=1.){
+            count++ ;
         }
     }
 
-    pi = 4.0 * (double)count / (double)N;
-    printf("Valore approssimato del Pi greco: %lf \n", pi);
+    pi=4.*(double)count/(double)N ;
+    printf("Valore approssimato del Pi greco: %lf \n", pi) ;
 
-    return 0;
+    return 0 ;
 }
 
 /* Prove con diversi N

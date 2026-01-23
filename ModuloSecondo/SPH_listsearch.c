@@ -1,9 +1,17 @@
 #include "SPH_rutil.h"
 
-double Hmax(struct Particle *p, int N){
-//Trova il massimo tra le h
+    /* IMPLEMENTAZIONE LISTSEARCH */
+
 // p: vettore di particelle
-// n: numero di particelle
+// N: numero di particelle
+// d: array distanze
+// idx: array di indici
+// L_domain: lunghezza del tubo
+// dc: dimensione della cella 
+
+
+/* Massimo tra le h */
+double Hmax(struct Particle *p, int N){
 
     double hmax=-1. ;
     for(int i=0; i<N; i++){
@@ -14,19 +22,16 @@ double Hmax(struct Particle *p, int N){
     return hmax ;
 }
 
+/* Relazione tra due elementi di tipo Pair */
 int cmp_pair(const void *a, const void *b){
-//Determina la relazione tra due elementi di tipo Pair per riordinarli
 
     double diff=((struct Pair*)a)->d - ((struct Pair*)b)->d ;
     int cmp=(diff>0)-(diff<0) ;
     return cmp ;
 }
 
+/* Sorting dell'array d e dei rispettivi indici in ordine di distanza crescente */
 void di_sort(double *d, int *idx, int N){
-//Ordina l'array d ed i rispettivi indici in ordine di distanza crescente
-// d: array distanze
-// idx; array di indici
-// N: dimensione degli array
 
     struct Pair *arr=malloc(N*sizeof(struct Pair)) ;
     if(!arr){
@@ -49,7 +54,7 @@ void di_sort(double *d, int *idx, int N){
     free(arr) ;
 }
 
-
+/* Generatore di una lista */
 void makelist(struct Particle *p, struct Particle **Griglia, int N, double dc, int Ncelle){
     
     for(int i=0; i<Ncelle; i++){
@@ -72,10 +77,6 @@ void makelist(struct Particle *p, struct Particle **Griglia, int N, double dc, i
 
 /* Listsearch */
 double listsearch(struct Particle *p, int N, double L_domain){
-// p: vettore di particelle
-// n: numero di particelle
-// L_domain: lunghezza del tubo
-// dc: dimensione della cella 
     
     double H=Hmax(p,N) ;
     double dc=2.*H ;
@@ -126,7 +127,7 @@ double listsearch(struct Particle *p, int N, double L_domain){
                 attuale=attuale->next ;
             }
         }
-        //Vogliamo i 64 vicini (al max 64)
+        //Vogliamo i 110 vicini (al max 110)
         if(NeighN>0){
             di_sort(tempD,temp_i,NeighN) ;
             int L=NeighN ;

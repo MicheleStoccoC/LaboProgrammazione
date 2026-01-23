@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
 
 	if(argc<4){
     	printf("ERRORE: Utilizzo Errato\n") ;
-    	printf("\nUsage: <eseguibile> <Numero di particelle> <Rateo del numero di part. (Sx/Totale)> <Numero di step da saltare per la scrittura su file>") ;
+    	printf("\nUtilizzo corretto: <eseguibile> <Numero di particelle> <Rateo del numero di part. (Sx/Totale)> <Numero di step da saltare per la scrittura su file>") ;
     	exit(-1) ;
     }
 	
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]){
 	double ratio=atof(argv[2]) ;	//Rateo del numero di part. (Sx/Totale)
 	int savestep=atoi(argv[3]) ;	//Numero di step da saltare per la scrittura su file
 	
-	if(ratio > 1){
+	if(ratio>1){
 		printf("ERRORE: Utilizzo Errato - Rateo>1 \n") ;
 		printf("\n argv[2] deve essere compreso tra 0 e 1, rappresenta N_sx/N_tot") ;
 		exit(-1) ;
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]){
 	Tstart=clock() ;
 	/* Integrazione del sistema */
 	while(time<FINAL_TIME){
-		printf("\r%3d%% completato... siamo a %lf sec, dt e' %lf sec, step %d", (int)(100.0 * time / FINAL_TIME), time, dt,step);
+		printf("\r%3d%% completato... siamo al tempo %lf sec, dt e' %lf sec, step numero %d", (int)(100.0 * time / FINAL_TIME), time, dt, step) ;
 		fflush(stdout) ;
 		KDK(p,N,dt,h,length) ;		
 		time += dt ;
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]){
 	printf("\n\t100%% completato... tempo simulato: %lf sec \n", time) ;
 	printf("Tempo impiegato ad integrare il sistema: %lf sec \n", Ttot) ;
 	
-	//Libero memoria
+	/* Libero memoria */
 	free(p) ;
 
 	printf("\a");

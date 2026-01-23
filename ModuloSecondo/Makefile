@@ -19,21 +19,6 @@ SNAPS			= snapshot_*
 %.o: %.c $(HEADERS) Makefile
 	$(CC) $(OMPFL) -c $< -o $@ 
 
-info:
-	@echo '   '
-	@echo 'make SPH_quick:   compiles and executes the SPH programs with quicksort'
-	@echo '		  search for neighbors'
-	@echo '   '
-	@echo 'make SPH: 	  compiles and executes the SPH programs with linked list'
-	@echo '		  search for neighbors'
-	@echo '   '
-	@echo 'make graph: 	  makes a .gif that shows the evolution of the sample, and an'
-	@echo '		  an Energy vs. t and a Velocity vs. time graphs'
-	@echo '   '
-	@echo 'make clean: 	  deletes the executables'
-	@echo '   '
-	@echo 'make clean_snaps: deletes the snap_%04d files'
-
 SPH_quick: clean_snaps $(QSOURCES)
 	$(CC) $(NO_OMP) -o $(QPROG) $(QSOURCES) $(LIB)
 	@echo '  '

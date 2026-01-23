@@ -20,9 +20,9 @@ int main(int argc, char *argv[]){
     }
 
 	
-	int N 		 = atoi(argv[1]) ;
-	double ratio = atof(argv[2]) ;
-	int savestep = atoi(argv[3]) ;
+	int N=atoi(argv[1]) ;
+	double ratio=atof(argv[2]) ;
+	int savestep=atoi(argv[3]) ;
 	
 	
 	if(ratio>1){
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]){
 	dt=ComputeTimeStep(p,N,h) ;	
 	
 	Tstart=clock() ;
-    //Integrazione del sistema
+    /* Integrazione del sistema */
 	while(time<FINAL_TIME){
 		printf("\r%3d%% completed... siamo al tempo %lf sec, dt e' %lf sec, step numero %d", (int)(100.*time/FINAL_TIME), time, dt, step) ;
 		fflush(stdout) ;
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]){
 	printf("\n\t100%% completato... tempo simulato: %lf sec \n", time) ;
 	printf("Tempo impiegato ad integrare il sistema: %lf sec \n", Ttot) ;
 	
-    //Libero memoria
+    /* Libero memoria */
 	free(p) ;
 
 	printf("\a");

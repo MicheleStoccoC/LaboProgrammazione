@@ -15,6 +15,7 @@ int cmp_part(const void *a, const void *b){
 
 /* Quicksearch */
 double quicksearch(struct Particle *p, int N, double L_domain){
+    
     qsort(p, N, sizeof(struct Particle), cmp_part) ;
     double Hmax ;
     int NeighN=64 ;
@@ -33,7 +34,7 @@ double quicksearch(struct Particle *p, int N, double L_domain){
                 continue ;
             }
             int iNeigh=(i+j+N)%N ;
-            // evitare che la periodicità disturbi il tubo
+
             double temp_d=p[i].x-p[iNeigh].x ;
             if(fabs(temp_d)>L_domain*0.5){
                 continue ;
@@ -57,6 +58,6 @@ double quicksearch(struct Particle *p, int N, double L_domain){
             Hmax=p[i].h ;
         }
     }
-    //Nota: p.neighbors salva gli indici della nuova configurazione
+
     return Hmax ;
 }

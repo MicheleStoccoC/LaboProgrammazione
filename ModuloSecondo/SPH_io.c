@@ -1,12 +1,16 @@
 #include "SPH_rutil.h"
 
-//FUNZIONI DI LETTURA/SCRITTURA
+    /* FUNZIONI DI LETTURA/SCRITTURA */
 
-void set_IC(struct Particle *pts, int n_lz, int n_rz, double L_domain){
-//Imposta le condizioni iniziali per le particelle
-// particles: vettore di particelle
-// n_lz-n_rz: numero di particelle a sinistra/destra rispettivamente
+// pts: vettore di particelle
+// n_lz(n_rz): numero di particelle a sinistra(destra)
 // L_domain: lunghezza tubo	
+// N: numero di particelle
+// step: step temporale in cui siamo
+
+/* Set condizioni iniziali */
+void set_IC(struct Particle *pts, int n_lz, int n_rz, double L_domain){
+
     int N=n_lz+n_rz ;
 
     //Zona 4 (sx): x<0 (high U)
@@ -52,12 +56,8 @@ void set_IC(struct Particle *pts, int n_lz, int n_rz, double L_domain){
     }
 }
 
-
+/* Scrittura dello snap temporale */
 void snap_time(struct Particle *pts, int N, int step){
-//Funzione che, a tempi tipici, effettua uno snap della situazione
-// particles: vettore di particelle
-// n: numero di particelle
-// step: step temporale in cui siamo
 
     char filename[64] ;
     sprintf(filename, "snapshot_%04d", step) ;
@@ -70,10 +70,8 @@ void snap_time(struct Particle *pts, int N, int step){
     fclose(fp) ;
 }
 
+/* Sovrascrittura del precedemte snap */
 void snap_last(struct Particle *pts, int N){
-//Funzione che, ad ogni step, effettua uno snap della situazione sovrascrivendo il precedente
-// particles: vettore di particelle
-// n: numero di particelle
 
     const char file[]="snap_last" ;
     FILE *fp=fopen(file, "wb") ;

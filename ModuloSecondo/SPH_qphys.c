@@ -1,31 +1,40 @@
 #include "SPH_qrutil.h"
 
+	/* FISICA DEL SISTEMA */
+
+// p1, p2, a, b: particelle
+// L_domain: lunghezza del tubo
+// r: distanza tra due particelle
+// h: raggio di interazione della particella
+// p: vettore di particelle
+// N: numero di particelle
+// dt: step temporale
+
+
 /* Segno */
 double sign(double x){ 
 	int s=(x>0)-(x<0) ;
 	return s ; 
 }
 
-/* Distanza data PBC */
+/* Distanza */
 double distance(struct Particle p1, struct Particle p2, double L_domain){
-// x1 - x2: particelle tra cui calcolare la distanza
-// L_domain: lunghezza del tubo
 
 	double dx=p1.x-p2.x ;
 	// CC Periodiche
+	/*
 	if(dx>0.5*L_domain){  
 		dx -= L_domain ;
 	}else if(dx<-0.5*L_domain){  
 		dx += L_domain ;
 	}
+	*/
 
 	return dx;
 }
 
 /* Kernel Cubic Spline 1D */
 double kernel(double r, double h){
-// r: distanza tra due particelle
-// h: raggio di interazione della particella
 
     double q=fabs(r)/h ;
     double sigma=2./(3.*h) ; 
@@ -42,9 +51,7 @@ double kernel(double r, double h){
 }
 
 /* Derivata del Kernel */
-double kern_der(double r, double h) {
-// r: distanza tra due particelle
-// h: raggio di interazione della particella
+double kern_der(double r, double h){
 
 	double q=fabs(r)/h ;
     double sigma=2./(3.*h*h) ; 
@@ -62,9 +69,6 @@ double kern_der(double r, double h) {
 
 /* Viscosita' tra due particelle */
 double ComputeViscosity(struct Particle a, struct Particle b, double L_domain){
-// a - b: particelle tra cui calcolare lo smoothing
-// h: raggio di interazione della particella
-// L_domain: lunghezza del tubo
 
 	double v_ab=(a.v)-(b.v) ;
 	double x_ab=distance(a, b, L_domain) ;
@@ -84,10 +88,6 @@ double ComputeViscosity(struct Particle a, struct Particle b, double L_domain){
 
 /* Tassi di cambiamento */
 void ComputeXLR8(struct Particle *p, int N, double L_domain){
-// p: vettore di particelle
-// n: numero di particelle
-// h: raggio di interazione della particella
-// L_domain: lunghezza del tubo
 	
 	for(int i=0; i<N; i++){
 		
@@ -106,10 +106,6 @@ void ComputeXLR8(struct Particle *p, int N, double L_domain){
 
 /* Calcolo di densità e pressione */
 void ComputeDensPress(struct Particle *p, int N, double L_domain){
-// p: vettore di particelle
-// n: numero di particelle
-// h: raggio di interazione della particella
-// L_domain: lunghezza del tubo
 
 	for(int i=0; i<N; i++){
 		p[i].rho=0. ;
@@ -133,9 +129,6 @@ void ComputeDensPress(struct Particle *p, int N, double L_domain){
 
 /* Passo temporale */
 double ComputeTimeStep(struct Particle *p, int N, double h){
-// p: vettore di particelle
-// n: numero di particelle
-// h: raggio di interazione della particella
 
 	double dt=10. ;
 	for(int i=0; i<N; i++){
@@ -155,11 +148,6 @@ double ComputeTimeStep(struct Particle *p, int N, double h){
 
 /* Kick-Drift-Kick per posizioni e velocità */
 void KDK(struct Particle *p, int N, double dt, double h, double L_domain){
-// p: vettore di particelle
-// n: numero di particelle
-// dt: step temporale
-// h: raggio di interazione della particella
-// L_domain: lunghezza del tubo
 
 	double hh=0.5*dt ;
 	
@@ -177,7 +165,7 @@ void KDK(struct Particle *p, int N, double dt, double h, double L_domain){
 		}
 
 		p[i].x += p[i].v*dt ;
-		// CC Periodiche
+		// CC Muro Riflettente
 		if(p[i].x<0.){
 			p[i].x=-p[i].x ;
 			p[i].v=-p[i].v ;

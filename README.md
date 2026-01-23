@@ -99,8 +99,6 @@ plot.py genera una gif che mostra l'evoluzione temporale della densita' delle pa
 
 ## Altri Codici
 
-### BinaryTrees
-
 ### Bisec_Variabile
 
 Il codice implementa l'alcoritmo di bisezione per trovare un punto di minimo di tra funzioni con argomenti variabili. Questo codice e' l'evoluzione di un algoritmo sviluppato in precedenza che non supportava gli argomenti variabili: può essere riesumato "attivando" le funzioni commentate e commentando il codice attuale.
@@ -164,8 +162,5 @@ e.g. di compilazione
 >> gcc Random_e_Cerchi.c -DTHREE_DIM  -Wall -lm -o cerchi3d
 
 >> gcc Random_e_Cerchi.c -Wall -lm -o cerchi
-
-
-### SparseVec
 
 ## Note varie ed eventuali:

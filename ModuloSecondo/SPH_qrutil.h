@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// COSTANTI
+/* PARAMETRI GLOBALI */
 
 #define FINAL_TIME 0.2		//Tempo finale 
 #define GAMMA 1.4           	//Indice Adiabatico
@@ -15,7 +15,7 @@
 #define M 0.000125          	//Massa 
 
 
-// STRUTTURE
+/* STRUTTURE */
 
 struct nlist{
     struct nlist *next; /* next entry in chain */
@@ -39,6 +39,8 @@ struct Particle{
     int neigh_num;
     int neighbors[120];
 };
+
+/* Numerical Recipes */
 
 static float sqrarg;
 #define SQR(a) ((sqrarg=(a)) == 0.0 ? 0.0 : sqrarg*sqrarg)
@@ -82,12 +84,10 @@ static int iminarg1,iminarg2;
 
 #if defined(__STDC__) || defined(ANSI) || defined(NRANSI) /* ANSI */
 
-//FUNZIONI RICERCA VICINI 
+/* FUNZIONI RICERCA VICINI */ 
 int cmp_part(const void *a, const void *b) ;
 double quicksearch(struct Particle *p, int N, double L_domain) ;
-
-
-// FUNZIONI FISICHE/CALCOLO
+/* FUNZIONI FISICHE/CALCOLO */
 double distance(struct Particle a, struct Particle b, double L_domain);
 double kernel(double r, double h);
 double kern_der(double r, double h);
@@ -96,15 +96,11 @@ void ComputeDensPress(struct Particle *p, int N, double L_domain);
 double ComputeViscosity(struct Particle a, struct Particle b, double L_domain);
 double ComputeTimeStep(struct Particle *p, int N, double h);
 void KDK(struct Particle *p, int n, double dt, double h, double L_domain);
-
-// FUNZIONI INPUT/OUTPUT
-
+/* FUNZIONI INPUT/OUTPUT */
 void snap_time(struct Particle *p, int n, int step);
 void snap_last(struct Particle *p, int n);
 void set_IC(struct Particle *p, int n_lz, int n_rz, double L_domain);
-
-// FUNZIONI CREAZIONE/LIBERAZIONE MEMORIA
-
+/* FUNZIONI CREAZIONE/LIBERAZIONE MEMORIA */
 void nrerror(char error_text[]);
 float *vector(long nl, long nh);
 int *ivector(long nl, long nh);

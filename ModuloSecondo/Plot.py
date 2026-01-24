@@ -6,7 +6,7 @@ import os
 
 # ================= CONFIGURAZIONE =================
 # Imposta True per la versione Linked List, False per Qsort
-USA_LINKED_LIST_STRUCT = True       # False
+USA_LINKED_LIST_STRUCT = False       # True
 
 DATA_DIR = "." 
 PATTERN = "snapshot_*"
@@ -56,7 +56,7 @@ def create_single_gif(variable_name, label, color, files, dtype):
         return line,
 
     ani = animation.FuncAnimation(fig, update, frames=len(files), init_func=init, blit=True)
-    filename = f"evol_L_{variable_name}.gif"            # evol_Q_{variable_name}.gif
+    filename = f"evol_QS_{variable_name}.gif"            # evol_LL_{variable_name}.gif
     ani.save(filename, writer='pillow', fps=15)
     plt.close(fig)
     print(f"Salvato: {filename}")

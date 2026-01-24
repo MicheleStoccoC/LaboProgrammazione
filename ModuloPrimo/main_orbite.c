@@ -18,7 +18,7 @@ int main(int argc, char *argv[]){
         printf("Errore nell'allocazione di memoria.\n") ;
         return 1 ;
     }
-    // TUTTOOOO!!!
+    // 
     char nome1[100] ;
     FILE *fd ;
     fd = fopen("DATA.txt","r") ;

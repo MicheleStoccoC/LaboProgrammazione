@@ -36,7 +36,7 @@ Il file gestisce le funzioni di output del sistema e l'impostazione delle condiz
 
 set_IC imposta le condizioni iniziali: inizialmente la lunghezza di smoothing era settata su un valore che tentava di permettere alla particella di osservare 64 particelle vicine, oguna delle quali distribuite uniformemente; questo metodo era fallimentare perche' sovrastimava enormemente la capacita' di interazione a lunga distanza delle particelle. Dopo svariate prove e' stato optato per un valore di h di default molto piccolo e indipendente dai parametri del sistema. In ogni caso il tentativo fallito e' rimasto commentato.
 
-Le funzioni snap_* scrivono (o sovrascrivono) lo step temporale inserito su dei file binari in modo da occupare meno memoria possibile. Starà al programma python smatassare le infomazioni nei diversi snapshot. 
+Le funzioni snap_* scrivono (o sovrascrivono) lo step temporale inserito su dei file binari in modo da occupare meno memoria possibile. Stara' al programma python smatassare le infomazioni nei diversi snapshot. 
 
 ### SPH_qphys
 
@@ -44,7 +44,7 @@ Il file di codice gestisce tutte le funzioni utili a descrivere la fisica del si
 
 Le varie funzioni controllano che le quantita' rimangano fisiche (u>0, P>0, ...) e stabiliscono delle condizioni al contorno.
 
-> Nota: Contrariamente dal codice PM-1D il tubo non e' periodico ma possiede delle pareti rigide. La funzione distanza cercava di applicare ancora le PBC ma ciò generava problemi ai margini percui sono state commentate ed escluse. KDK invece ha reso necessaria l'implementazione degli urti elastici: un tubo rigido in cui le particelle si muovono senza conseguenze permette l'accumulo di queste ultime ai margini del sistema inficiando tutti i risultati, aggiungendo la possibilita' di urti elastici con le pareti le particelle al posto di schiantarsi sulle pareti rimbalzano e "tornano indietro".
+> Nota: Contrariamente dal codice PM-1D il tubo non e' periodico ma possiede delle pareti rigide. La funzione distanza cercava di applicare ancora le PBC ma cio' generava problemi ai margini, percio' sono state commentate ed escluse. KDK invece ha reso necessaria l'implementazione degli urti elastici: un tubo rigido in cui le particelle si muovono senza conseguenze permette l'accumulo di queste ultime ai margini del sistema inficiando tutti i risultati, aggiungendo la possibilita' di urti elastici con le pareti le particelle al posto di schiantarsi anelasticamente rimbalzano e "tornano indietro".
 
 ### SPH_quicksearch
 
@@ -86,7 +86,7 @@ Le varie funzioni controllano che le quantita' rimangano fisiche (u>0, P>0, ...)
 
 ### SPH_listsearch
 
-Il metodo linked list tenta ricerca dei vicini delle particelle con un approccio più efficiente: il tubo viene suddiviso in una griglia di celle tale per cui i vicini di una particella posso trovarsi unicamente nelle celle adiacenti, in questo modo la ricerca dei vicini viene effettteuta su molte meno particelle (e percio' molti meno cicli); nella procedura e' implementato un controllo sul numero di vicini minimo da trovare (110). Per evitare di lavorare con strutture troppo grandi viene definita "Pair" (che contiene la distanza e l'indice della particella) e delle funzioni dedicate ce possono operare su di essa.
+Il metodo linked list tenta la ricerca dei vicini delle particelle con un approccio più efficiente: il tubo viene suddiviso in una griglia di celle tale per cui i vicini di una particella posso trovarsi unicamente nelle celle adiacenti, in questo modo la ricerca dei vicini viene effettteuta su molte meno particelle (e percio' molti meno cicli); nella procedura e' implementato un controllo sul numero di vicini minimo da trovare (110). Per evitare di lavorare con strutture troppo grandi viene definita "Pair" (che contiene la distanza e l'indice della particella) e delle funzioni dedicate ce possono operare su di essa.
 
 Alla fine viene applicato l'adattamento di h in funzione del vicino piu' vicino.
 
@@ -100,10 +100,16 @@ Alla fine viene applicato l'adattamento di h in funzione del vicino piu' vicino.
 
 Il codice genera le gif che mostrano l'evoluzione temporale di densita', pressione, energia, velocita' (in aggiunta anche accelerazione e lunghezza di smoothing) lungo il tubo per vedere lo shock dell'onda d'urto.
 
+AVVERTENZA: ricordarsi di cambiare la regola True/False all'inizio del codice in funzione della simulazione eseguita altrimenti vengono generati grrafici senza alcun senso fisico!
+
 ## Altre note, varie ed eventuali
 
 #### Grafici ottenuti
 
+Nella cartella sono presenti anche le gif delle evoluzioni temporali delle quantita' più importanti fatte tramite linked list (evol_LL*) e quicksort (evol_QS*).
 
 #### Considerazioni a posteriori
-Troppo tardi mi sono reso conto che effettivamente i codici dei due metodi sono quasi identici e che per avere meno ingombro e piu' ordine nella cartella si possono riunire in un unico set di codici per entrambi e dividere le differenze attraverso l'implementazione di un #ifdef in fase di compilazione.
+
+Nota1: Contrariamente alle aspettative il metodo linked list viene eseguito molto piu' lentamente: e' tra le 5 e le 8 volte piu' lento. La spiegazione plausibile che mi sono dato e' che il metodo diventi veramente piu' efficiente nei casi multidimentsionali mentre in 1D la procedura impegna il codice piu' di quanto necessario (uccidere una mosca con un bazooka)
+
+Nota2: Troppo tardi mi sono reso conto che effettivamente i codici dei due metodi sono quasi identici e che per avere meno ingombro e piu' ordine nella cartella si possono riunire in un unico set di codici per entrambi e dividere le differenze attraverso l'implementazione di un #ifdef in fase di compilazione (o di una scelta da label come fatto nel codice BisecWPointers.c).

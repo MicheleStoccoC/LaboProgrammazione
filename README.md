@@ -1,13 +1,14 @@
 # LaboProgrammazione
 
-In questa cartella verranno caricati gli esercizi e i moduli d'esame del corso 'Laboratorio di Programmazione Avanzata per l'Astrofisica'
+In questa cartella verranno caricati gli esercizi e i moduli d'esame del corso "Laboratorio di Programmazione Avanzata per l'Astrofisica".
 
 ## IntegrazioneEqD
 
 La cartella contiene gli esecizi di integrazione delle equazioni differenziali con le librerie e i codici in grado di integrare attraverso metodo Runge&Kutta4 e TimeStep Adattivo. La cartella contiene un Makefile per eseguire il tutto più semplicemente.
 
 ### Makefile
-Qui sono esplicitate le regole per la compilazione e secuzione e pulizia dei file nella cartella.
+
+Qui sono esplicitate le regole per la compilazione l'esecuzione e pulizia dei file nella cartella.
 
 >> make DensityM : compila ed esegue Density_midpoint.c con densita' esponenziale
 
@@ -27,15 +28,15 @@ Qui sono esplicitate le regole per la compilazione e secuzione e pulizia dei fil
 
 ### Density_adaptive
 
-Utilizzando la libreria Numerical Recepies e gli script forniti nella cartella github del corso, integra la densita' di stelle in una nube di gas monoatomico in fase di starformation utilizzando un time-step adattivo. Genera un file di testo con i risultati dell'integrazione e i valori della soluzione analitica.
+Utilizzando la libreria Numerical Recepies e gli script forniti nella cartella github del corso, integra la densita' di stelle in una nube di gas in fase di starformation utilizzando un time-step adattivo. Genera un file di testo con i risultati dell'integrazione e i valori della soluzione analitica.
 
-Nota: per ora la soluzione analitica (parabola) vale solo per il caso RHO costante, in quanto nell'altro caso essa sarebbe rappresentata da una curva esponenziale(CONTROLLA); il codice puo' essere integrato con un altra procedura 'ifdef' che definisce la funzione 'exact' in base agli argomenti forniti durante la compilazione.
+Nota: per ora la soluzione analitica (parabola) vale solo per il caso RHO costante, in quanto nell'altro caso essa sarebbe rappresentata da una curva esponenziale; il codice puo' essere modificato aggiungendo un'altra procedura 'ifdef' che definisce la funzione 'exact' in base agli argomenti forniti durante la compilazione.
 
 ### Density_midpoint
 
-Utilizzando una funzione ricorsiva integra la densita' di stelle in una nube di gas monoatomico in fase di starformation utilizzando il metodo midpoint e time-step fissato. Genera un file di testo con i risultati dell'integrazione e i valori della soluzione analitica.
+Utilizzando una funzione ricorsiva integra la densita' di stelle in una nube di gas in fase di starformation utilizzando il metodo midpoint e time-step fissato. Genera un file di testo con i risultati dell'integrazione e i valori della soluzione analitica.
 
-Nota: come sopra, per ora la soluzione analitica (parabola) vale solo per il caso RHO costante, in quanto nell'altro caso essa sarebbe rappresentata da una curva esponenziale(CONTROLLA); il codice puo' essere integrato con un altra procedura 'ifdef' che definisce la funzione 'exact' in base agli argomenti forniti durante la compilazione.
+Nota: come sopra, per ora la soluzione analitica (parabola) vale solo per il caso RHO costante, in quanto nell'altro caso essa sarebbe rappresentata da una curva esponenziale; il codice puo' essere modificato con una procedura 'ifdef' che definisce la funzione 'exact' in base agli argomenti forniti durante la compilazione.
 
 ### Friedmann2
 
@@ -45,7 +46,7 @@ Il codice fornisce anche un confronto tra le velocità di integrazione del siste
 
 ### InkDiffusion
 
-Il codice integra nel tempo l'equazione differenziale di una goccia di inchiostro che si diffonde in una dimensione spaziale. Viene utilizzato il metodo adaptive step gestito da odeint.c 
+Il codice integra nel tempo l'equazione differenziale di una goccia di inchiostro che si diffonde in una dimensione spaziale. Viene utilizzato il metodo adaptive time-step gestito da odeint.c 
 
 ### Plot*.py
 
@@ -57,7 +58,7 @@ La cartella contiene i files relativi allo svolgimento dell'esercizio del primo 
 
 ## ModuloSecondo
 
-La cartella contiene i files relativi allo svolgimento dell'esercizio del secondo modulo d'esame: Esecuzione di una simulazione SPH 1D con lunghezza di smoothing adattiva ricerca di vicini tramite Qsort e LinkedList. (README dettagliato all'interno della cartella)
+La cartella contiene i files relativi allo svolgimento dell'esercizio del secondo modulo d'esame: Esecuzione di una simulazione SPH 1D con lunghezza di smoothing adattiva e ricerca di vicini tramite Qsort e LinkedList. (README dettagliato all'interno della cartella)
 
 ## ParticleMesh1D
 
@@ -101,7 +102,7 @@ plot.py genera una gif che mostra l'evoluzione temporale della densita' delle pa
 
 ### Bisec_Variabile
 
-Il codice implementa l'alcoritmo di bisezione per trovare un punto di minimo di tra funzioni con argomenti variabili. Questo codice e' l'evoluzione di un algoritmo sviluppato in precedenza che non supportava gli argomenti variabili: può essere riesumato "attivando" le funzioni commentate e commentando il codice attuale.
+Il codice implementa l'algoritmo di bisezione per trovare un punto di minimo tra funzioni con argomenti variabili. Questo codice e' l'evoluzione di un algoritmo sviluppato in precedenza che non supportava gli argomenti variabili: può essere riesumato "attivando" le funzioni commentate e commentando il codice attuale.
 
 Da comando possono essere scelte tre equazioni da sottoporre alla procedura di bisezione: 'quad','cube','trascI' e 'trascII'
 
@@ -115,11 +116,11 @@ e.g.
 
 ### BisecWPointers
 
-Se non si vuole riesumare il codice decommentando gli elementi da Misec_Variabile.c si può usare direttamente questo che è la versione precedente.
+Se non si vuole riesumare il codice decommentando gli elementi da Bisec_Variabile.c si può usare direttamente questo che è la versione precedente.
 
 ### Cerchi_e_Strutture
 
-Il codice genera attraverso la definizione di una struttura "point" due set di punti con coordinare casuali all'interno di due sfere di raggio fissato. I punti generati sono scritti su due file differenti il cui nome viene definito in base alle caratteristiche dei cerchi generati. L'eseguibile ha bisogno di 4 parametri per funzionare: raggio della prima sfera e numero di punti da generare (N,r1) e raggio della seconda sfera con rispettivo numero di punti da generarci all'interno (M, r2). (./exe N M r1 r2)
+Il codice genera attraverso la definizione di una struttura "point" due set di punti con coordinare casuali all'interno di due sfere di raggio fissato. I punti generati sono scritti su due file differenti il cui nome viene definito in base alle caratteristiche dei cerchi generati. L'eseguibile ha bisogno di 4 parametri per funzionare: raggio della prima sfera e numero di punti da generare (N,r1) e raggio della seconda sfera con rispettivo numero di punti da generarci dentro (M, r2). (./exe N M r1 r2)
 
 La generazione del punto casuale e' affidata ad una funzione associata alla struttura "point".
 
@@ -130,8 +131,6 @@ e.g.
 ### LinkedList
 
 File nato come un primo manuale di istruzioni alle liste linkate (argomento nuovo) e poi si e' evoluto nell'esercizio di inserimento di un nuovo elemento nella lista in un punto specifico.
-
->> ./eseguibile
 
 ### Pi_finder
 
@@ -147,15 +146,15 @@ Prova ricorsione calcola il fattoriale di un numero intero attraverso l'implemen
 
 ### RadiciExp
 
-Il programma implementa due algoritmi per la ricerca del minimo di una funzione: Bisezione e Newton. E ne confronta i risultati. Il codice implementa per la prima volta un "#ifdef" che permette di testare il codice su una funzione con punto di minimo conosciuto in modo da verificarne l'efficacia.
+Il programma implementa due algoritmi per la ricerca del minimo di una funzione, Bisezione e Newton, e ne confronta i risultati. Il codice implementa per la prima volta un "#ifdef" che permette di testare il codice su una funzione con punto di minimo conosciuto in modo da verificarne l'efficacia.
 
 ### Random_e_Cerchi
 
-Il codice genera N punti casuali in una sfera di raggio r in coordinate polari utilizzando una struttura point e mantenendo il raggio dei punti con distribuzione lineare. In fase di compilazione si può decidere di eseguire lo stesso programma ma su una sfera 3D in coordinate polari.
+Il codice genera N punti casuali in una sfera di raggio r in coordinate polari utilizzando una struttura point e mantenendo il raggio dei punti con distribuzione lineare. In fase di compilazione si puo' decidere di eseguire lo stesso programma ma su una sfera 3D in coordinate polari.
 
 L'intero esercizio è ripetuto generando il raggio con distribuzione uniforme.
 
-Viene scritto file per entrambe le distribuzioni.
+Viene scritto un file per entrambe le distribuzioni.
 
 e.g. di compilazione
 

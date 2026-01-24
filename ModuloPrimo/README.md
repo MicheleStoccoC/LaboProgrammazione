@@ -1,6 +1,8 @@
-### Integrazione orbite planetarie
+## Integrazione orbite planetarie
 
 In questo file verra' descritto il sistema di codici che integrano le orbite dei pianeti attorno alla propria stella per il Sistema Solare e il sistema Trappist-1. I codici integrano le orbite attraverso il metodo euleriano.
+
+### Codici Principali
 
 #### Data files
 
@@ -10,7 +12,7 @@ Il file "DATA.txt" riporta i dati relativi alle distanze dei vari pianeti rispet
 
 Il Makefile permette di compilare separatamente "main_orbite.c" e lo script di traduzione "bintotxt.c". Alla fine dell'esecuzione del modulo la regola 'clean' permette di pulire la cartella dai file in eccesso e mantenerla ordinata.
 
-Come assicurazione sulla compilazione Gemini-AI ha consigliato di aggiungere la flag '-std=c99' in modo che i file vengano sempre compilati con una versione che supporta tutte le librerie utilizzate.
+Come assicurazione sulla compilazione e' stata aggiunta la flag '-std=c99' in modo che i file vengano sempre compilati con una versione che supporta tutte le librerie utilizzate.
 
 'Makefile' possiede due regole principali che permettono di compilare 'main_orbite.c' assieme a 'functions.c' in modo che integrino le orbite per il sistema solare e per il sistema di Trappist; questo perché all'interno dei file sono presenti degli '#ifndef'. Oltre a ciò possiede la regola per compilare il file 'bintotxt.c' (traduttore binario->testo).
 
@@ -26,14 +28,14 @@ Chiamare le regole:
 
 #### Header.h
 
-Nell'header.h' vengono incluse tutte le librerie utili ai codici e vengono definite le costanti matematiche.
+Nel 'header.h' vengono incluse tutte le librerie utili ai codici e vengono definite le costanti matematiche.
 'header.h' inoltre inizializza le costanti esterne relative all'astrofisica (che verranno assegnate nel file 'costanti.c'), la struttura del pianeta in modo che ogni script possa recuperarla se necessario e inizializza anche le funzioni che verranno esplicitate in 'functions.c' ed utilizzate in 'main_orbite.c' .
 
 Gemini-AI ha consigliato di inserire una "Include Guard" di protezione nel caso il modulo dovesse utilizzare più file header linkati tra loro, di modo che il contenuto del file sia letto e processato dal compilatore una sola volta indipendentemente da quante volte quel file venga referenziato tramite '#include'. Procedura che per ora non è necessaria ma che si può rivelare utile se si vorranno aggiungere nuovi metodi di integrazione delle orbite (e.g. RK4).
 
 #### Costanti.c
 
-Mi sembrava sprecato utilizzare le costanti astrofisiche come delle variabili, per questo al posto di inserirle in un file testo che necessitava una ricerca non posizionale le ho messe in un file compilabile che assegna i loro valori come costanti esterne (inizializzate nel header). In ogni caso il file mantiene la versatilità precedente di poter essere modificato a piacimento con l'unico accorgimento di ricordarsi di inizializzare le variabili globali nel header e poi assegnarle qui.
+Per alleggerire il carico di lavoro del codice sulla ricerca non posizionale le costanti astrofisiche non sono state inserite in un file testo ma in in un file compilabile che assegna i loro valori come costanti esterne (inizializzate nel header). In ogni caso il file mantiene la versatilità precedente di poter essere modificato a piacimento, l'unico accorgimento da tenere e' ricordarsi di inizializzare le eventuali nuove variabili globali nel header e poi assegnar loro il valore in questo file.
 
 #### Functions.c
 
@@ -51,7 +53,13 @@ pianeta transcribe: funzione associata alla struttura pianeta; trascrive gli att
 
 eulero: applica il processo di avanzamento del pianeta, sposta l'oggetto in funzione della sua velocità e ricalcola il raggio, modifica l'accelerazione in funzione delle nuove coordinate e da essa ricava il nuovo valore della velocità da applicare allo step successivo. Alla fine il processo trascrive i valori aggiornati della struttura pianeta avvalendosi della funzione dedicata: 'transcribe'.
 
-#### Main.c
+#### Main_orbita.c
+
+Il codice principale gestisce gli altri per applicare l'integrazione delle orbite planetarie: inizializza le variabili, decide il tempo da integrare per simulare una intera orbita del pianeta piu' esterno, fa avanzare il sistema di uno step e scrive i risultati su un file dedicato. Alla fine dealloca la memoria.
+
+L'eseguibile necessita di 3 parametri assegnati all'esecuzione: 'Massa della stella' 'Numero di pianeti simulati' 'Passo temporale'. Attraverso la massa della stella inserita il codice distinguera' il sistema da integrare e ricerchera' i valori corretti dal file DATA.txt .
+
+e.g.
 
 SOLE
 
@@ -73,7 +81,8 @@ e.g. scrivere una riga ogni 10:
 
 #### Plot.py
 
-'plot.py' è uno script python che permette di graficare le orbite dei pianeti appena simulate, leggendo i file .txt generati da 'bin2txt'. Nello script è presente anche una parte dedicata a graficare le componenti della velocità del pianeta 3 (la Terra nel caso solare) per verificarne gli andamenti sinusoidali. Nota: nel caso le immagini generate venissero salvate queste non saranno rimosse dalla procedura 'make clean'.
+'plot.py' è uno script python che permette di graficare le orbite dei pianeti appena simulate, leggendo i file .txt generati da 'bin2txt'. Nello script è presente anche una parte dedicata a graficare le componenti della velocità del pianeta 3 (la Terra nel caso solare) per verificarne gli andamenti sinusoidali. Nota: nel caso le immagini generate venissero salvate queste non saranno rimosse dalla regola 'make clean'.
 
-#### 
+### Note varie ed eventuali
 
+Nella cartella sono state salvate le immagini generate da plot.py con i risultati delle due integrazioni.

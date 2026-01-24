@@ -110,6 +110,6 @@ Nella cartella sono presenti anche le gif delle evoluzioni temporali delle quant
 
 #### Considerazioni a posteriori
 
-Nota1: Contrariamente alle aspettative il metodo linked list viene eseguito molto piu' lentamente: e' tra le 5 e le 8 volte piu' lento. La spiegazione plausibile che mi sono dato e' che il metodo diventi veramente piu' efficiente nei casi multidimentsionali mentre in 1D la procedura impegna il codice piu' di quanto necessario (uccidere una mosca con un bazooka)
+Nota1: Contrariamente alle aspettative il metodo linked list viene eseguito molto piu' lentamente: e' tra le 5 e le 8 volte piu' lento. La spiegazione plausibile che mi sono dato e' che il metodo diventi veramente piu' efficiente nei casi multidimentsionali mentre in 1D la procedura impegna il codice piu' di quanto necessario.
 
 Nota2: Troppo tardi mi sono reso conto che effettivamente i codici dei due metodi sono quasi identici e che per avere meno ingombro e piu' ordine nella cartella si possono riunire in un unico set di codici per entrambi e dividere le differenze attraverso l'implementazione di un #ifdef in fase di compilazione (o di una scelta da label come fatto nel codice BisecWPointers.c).

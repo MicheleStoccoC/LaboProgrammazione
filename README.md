@@ -68,11 +68,11 @@ La cartella contiene i files relativi ad una simulazione di un sistema di partic
 
 Il file contiene le regole per compilare ed eseguire la simulazione PM-1D con tre kernel differenti: NearestGridPoint (NGP), CloudInCell (CIC), TriangularShapeCloud (TSC).
 
->> make ngp : compila main_pm.c e gli altri files con kernel NGP. Successivamente sara' necessaria l'esecuzione del programma tramite il comando " ./1dpm_ngp t_fin steps T m " (generalmente vengono usati 200. 2000 1. 1. ).
+>> make ngp : compila main_pm.c e gli altri files con kernel NGP. Successivamente sara' necessaria l'esecuzione del programma tramite il comando " ./1dpm_ngp t_fin steps T m " (generalmente vengono usati 150. 100000 1. 1. ).
 
->> make tsc : compila main_pm.c e gli altri files con kernel TSC. Successivamente sara' necessaria l'esecuzione del programma tramite il comando " ./1dpm_tsc t_fin steps T m " (generalmente vengono usati 200. 2000 1. 1. ).
+>> make tsc : compila main_pm.c e gli altri files con kernel TSC. Successivamente sara' necessaria l'esecuzione del programma tramite il comando " ./1dpm_tsc t_fin steps T m " (generalmente vengono usati 150. 100000 1. 1. ).
 
->> make cic : compila main_pm.c e gli altri files con kernel CIC. Successivamente sara' necessaria l'esecuzione del programma tramite il comando " ./1dpm_cic t_fin steps T m " (generalmente vengono usati 200. 2000 1. 1. ).
+>> make cic : compila main_pm.c e gli altri files con kernel CIC. Successivamente sara' necessaria l'esecuzione del programma tramite il comando " ./1dpm_cic t_fin steps T m " (generalmente vengono usati 150. 100000 1. 1. ).
 
 >> make clean : pulisce la crtella da tutti i file creati dalle regole del Makefile. Nota: file di testo e immagini rimangono e in caso devono essere rimossi manualmente.
 

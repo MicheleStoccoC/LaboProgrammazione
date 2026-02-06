@@ -24,7 +24,7 @@ Qui sono esplicitate le regole per la compilazione l'esecuzione e pulizia dei fi
 
 >> make clean_txt : pulisce la cartella da tutti i file *.txt presenti
 
->> make clean_png : pulisce la cartella da tutte le immagini con estensione .png e .jpg
+>> make clean_img : pulisce la cartella da tutte le immagini con estensione .png e .jpg
 
 ### Density_adaptive
 
